@@ -28,6 +28,7 @@
 </template>
 
 <script lang="ts">
+  import { Context } from '@nuxt/types';
   import {Component, Vue} from 'nuxt-property-decorator';
   import Column from "~/components/organisms/Column.vue";
 
@@ -37,5 +38,9 @@
     },
   })
   export default class PageIndex extends Vue{
+    async asyncData(context: Context): Promise<void> {
+      const { app } = context;
+
+    }
   }
 </script>
