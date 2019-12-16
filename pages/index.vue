@@ -4,22 +4,16 @@
   >
     <v-container>
       <v-row>
-        <v-btn large outlined>
-          <v-icon>mdi-plus</v-icon>
-          ボードを追加
-        </v-btn>
+        <new-content-dialog item-name="ボード名" placeholder="64文字以内" validation-rules="required|max:64" />
       </v-row>
       <v-row>
         <v-col
-          v-for="n in 25"
-          :key="n"
+          v-for="board in boards"
+          :key="board.ID"
           cols="auto"
         >
-          <v-card
-            height="100"
-            width="100"
-          >
-            <v-card-title>{{ n }}</v-card-title>
+          <v-card min-width="250">
+            <v-card-title>{{ board.Title }}</v-card-title>
           </v-card>
         </v-col>
       </v-row>
@@ -30,17 +24,20 @@
 <script lang="ts">
   import { Context } from '@nuxt/types';
   import {Component, Vue} from 'nuxt-property-decorator';
-  import Column from "~/components/organisms/Column.vue";
+  import NewContentDialog from "~/components/molecules/NewContentDialog.vue";
+  import {Boards} from "~/types/boards";
 
   @Component({
     components: {
-      Column
+      NewContentDialog
     },
   })
   export default class PageIndex extends Vue{
-    async asyncData(context: Context): Promise<void> {
+    boards: Boards[] = [];
+    async asyncData(context: Context): Promise<{boards: Boards[]}> {
       const { app } = context;
-
+      const boards = await app.$axios.$get('/api/v1/boards');
+      return {boards: boards}
     }
   }
 </script>
