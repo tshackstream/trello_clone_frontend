@@ -30,7 +30,9 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: '@/plugins/vee-validate'}
+    { src: '@/plugins/vee-validate'},
+    '~/plugins/axios',
+    '~/plugins/timeUtils',
   ],
   /*
   ** Nuxt.js dev-modules
@@ -38,6 +40,7 @@ export default {
   buildModules: [
     '@nuxtjs/vuetify',
     '@nuxt/typescript-build',
+    '@nuxtjs/moment',
   ],
   /*
   ** Nuxt.js modules
@@ -51,6 +54,7 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
+    prefix: '/api/v1'
   },
   /*
   ** vuetify module configuration
@@ -62,16 +66,20 @@ export default {
       dark: true,
       themes: {
         dark: {
-          primary: colors.blue.darken2,
+          primary: colors.blue.lighten1,
           accent: colors.grey.darken3,
           secondary: colors.amber.darken3,
           info: colors.teal.lighten1,
           warning: colors.amber.base,
-          error: colors.deepOrange.accent4,
-          success: colors.green.accent3
+          error: colors.red.lighten1,
+          success: colors.green.lighten1,
         }
       }
     }
+  },
+  moment: {
+    defaultLocale: 'ja',
+    locales: ['ja']
   },
   /*
   ** Build configuration
